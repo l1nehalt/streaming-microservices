@@ -7,7 +7,8 @@ builder.Services
     .AddSqlite(builder.Configuration)
     .AddRepositories()
     .AddServices()
-    .AddApiLayer();
+    .AddApiLayer()
+    .AddStatisticClient(builder.Configuration);
 
 var app = builder.Build();
 

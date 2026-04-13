@@ -16,6 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\StatisticService.Application\StatisticService.Application.csproj" />
       <ProjectReference Include="..\StatisticService.Domain\StatisticService.Domain.csproj" />
     </ItemGroup>
 

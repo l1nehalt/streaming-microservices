@@ -1,22 +1,23 @@
-﻿using TrackService.Application.DTOs;
+﻿using TrackService.Application.Clients;
+using TrackService.Application.Dtos;
 using TrackService.Application.Interfaces;
 using TrackService.Domain.Abstractions;
 using TrackService.Domain.Entities;
 
 namespace TrackService.Application.Services;
 
-public class TracksService(ITracksRepository tracksRepository) : ITracksService
+public class TracksService(ITracksRepository tracksRepository, StatisticClient client) : ITracksService
 {
     public async Task<List<TrackDto>> GetAllAsync()
     {
-       var result = await tracksRepository.GetAll();
-       
-       return result.Select(t => new TrackDto
-       {
-           Id = t.Id,
-           Title = t.Title,
-           Description = t.Description
-       }).ToList();
+        var result = await tracksRepository.GetAll();
+
+        return result.Select(t => new TrackDto
+        {
+            Id = t.Id,
+            Title = t.Title,
+            Description = t.Description
+        }).ToList();
     }
 
     public async Task<TrackDto> GetByIdAsync(int id)
@@ -39,7 +40,29 @@ public class TracksService(ITracksRepository tracksRepository) : ITracksService
             Description = trackDto.Description,
             ArtistId = trackDto.ArtistId
         };
-        
+
         await tracksRepository.Create(trackEntity);
+    }
+
+    public async Task<List<TrackDto>> GetPopular()
+    {
+        var stats = await client.GetPopularTrackStats();
+        
+        var ids = stats
+            .Select(x => x.TrackId)
+            .ToList();
+        var tracks = await tracksRepository.GetByIds(ids);
+
+        return tracks
+            .OrderBy(x => ids.IndexOf(x.Id))
+            .Select(x => new TrackDto
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Description = x.Description,
+                PlayCount = stats
+                    .First(s => s.TrackId == x.Id)
+                    .PlayCount
+            }).ToList();
     }
 }
