@@ -16,11 +16,17 @@ public static class ApiExtensions
     public static IServiceCollection AddStatisticClient(this IServiceCollection services, IConfiguration configuration)
     {
         var statisticsUrl = configuration["StatisticsUrl"];
+        
+        if (string.IsNullOrEmpty(statisticsUrl))
+        {
+            throw new Exception("StatisticsUrl is not configured!");
+        }
 
-        if (string.IsNullOrEmpty(statisticsUrl)) throw new Exception("StatisticsUrl is not configured!");
-
-        services.AddHttpClient<StatisticClient>(client => { client.BaseAddress = new Uri(statisticsUrl); });
-
+        services.AddHttpClient<StatisticClient>(client =>
+        {
+            client.BaseAddress = new Uri(statisticsUrl);
+        });
+        
         return services;
     }
 }
