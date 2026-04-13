@@ -1,13 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using TrackService.Infrastructure.Data;
-using TrackService.Application.Interfaces;
-using TrackService.Application.Services;
-using TrackService.Domain.Abstractions;
-using TrackService.Infrastructure.Data.Repositories;
+using StatisticService.Application.Interfaces;
+using StatisticService.Domain.Abstractions;
+using StatisticService.Infrastructure.Data;
+using StatisticService.Infrastructure.Data.Repositories;
 
-namespace TrackService.Infrastructure;
+namespace StatisticService.Infrastructure;
 
 public static class DataExtensions
 {
@@ -23,15 +22,13 @@ public static class DataExtensions
 
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
-        services.AddScoped<ITracksRepository, TracksRepository>();
-        
+        services.AddScoped<IStatisticRepository, StatisticRepository>();
         return services;
     }
     
     public static IServiceCollection AddServices(this IServiceCollection services)
     {
-        services.AddScoped<ITracksService, TracksService>();
-        
+        services.AddScoped<IStatisticService, Application.Services.StatisticService>();
         return services;
     }
 }

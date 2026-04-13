@@ -1,11 +1,12 @@
-﻿using TrackService.Application.DTOs;
+﻿using TrackService.Application.Clients;
+using TrackService.Application.Dtos;
 using TrackService.Application.Interfaces;
 using TrackService.Domain.Abstractions;
 using TrackService.Domain.Entities;
 
 namespace TrackService.Application.Services;
 
-public class TracksService(ITracksRepository tracksRepository) : ITracksService
+public class TracksService(ITracksRepository tracksRepository, StatisticClient client) : ITracksService
 {
     public async Task<List<TrackDto>> GetAllAsync()
     {
@@ -41,5 +42,21 @@ public class TracksService(ITracksRepository tracksRepository) : ITracksService
         };
         
         await tracksRepository.Create(trackEntity);
+    }
+
+    public async Task<List<TrackDto>> GetPopular()
+    {
+        var popularIds = client.GetPopularTrackIds().Result;
+
+        var tracks = await tracksRepository.GetByIds(popularIds);
+        
+        return tracks
+            .OrderBy(x => popularIds.IndexOf(x.Id))
+            .Select(x => new TrackDto
+            {
+                Id = x.Id,
+                Description = x.Description,
+                Title = x.Title
+            }).ToList();
     }
 }

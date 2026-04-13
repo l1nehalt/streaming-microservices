@@ -21,12 +21,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\TrackService.Application\TrackService.Application.csproj" />
       <ProjectReference Include="..\TrackService.Infrastructure\TrackService.Infrastructure.csproj" />
     </ItemGroup>

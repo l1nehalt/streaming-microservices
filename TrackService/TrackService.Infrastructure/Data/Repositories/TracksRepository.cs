@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TrackService.Infrastructure.Data;
 using TrackService.Domain.Abstractions;
 using TrackService.Domain.Entities;
 
-namespace TrackService.Infrastructure.Repositories;
+namespace TrackService.Infrastructure.Data.Repositories;
 
 public class TracksRepository(ApplicationDbContext dbContext) : ITracksRepository
 {
@@ -21,5 +20,12 @@ public class TracksRepository(ApplicationDbContext dbContext) : ITracksRepositor
     {
         await dbContext.Tracks.AddAsync(track);
         await dbContext.SaveChangesAsync();
+    }
+
+    public Task<List<Track>> GetByIds(List<int> ids)
+    {
+        return dbContext.Tracks
+            .Where(track => ids.Contains(track.Id))
+            .ToListAsync();
     }
 }

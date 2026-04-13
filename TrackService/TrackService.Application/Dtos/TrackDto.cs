@@ -1,4 +1,4 @@
-﻿namespace TrackService.Application.DTOs;
+﻿namespace TrackService.Application.Dtos;
 
 public class TrackDto
 {

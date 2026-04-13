@@ -9,4 +9,6 @@ public interface ITracksRepository
     Task<Track?> GetById(int id);
 
     Task Create(Track track);
+    
+    Task<List<Track>> GetByIds(List<int> ids);
 }

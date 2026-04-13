@@ -4,7 +4,7 @@ using TrackService.Application.Interfaces;
 namespace TrackService.Web.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("/api/tracks")]
 public class TracksController(ITracksService tracksService) : ControllerBase
 {
     [HttpGet]
@@ -12,6 +12,14 @@ public class TracksController(ITracksService tracksService) : ControllerBase
     {
         var result = await tracksService.GetAllAsync();
 
+        return Ok(result);
+    }
+
+    [HttpGet("popular")]
+    public async Task<IActionResult> GetPopular()
+    {
+        var result = await tracksService.GetPopular();
+        
         return Ok(result);
     }
 }
