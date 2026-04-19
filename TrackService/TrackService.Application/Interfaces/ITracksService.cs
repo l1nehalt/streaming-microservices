@@ -10,5 +10,7 @@ public interface ITracksService
 
     Task CreateAsync(TrackCreationDto trackDto);
 
-    Task<List<TrackDto>> GetPopular();
+    Task<List<TrackDto>> GetPopularAsync();
+
+    Task PlayAsync(PlayTrackDto playTrackDto);
 }

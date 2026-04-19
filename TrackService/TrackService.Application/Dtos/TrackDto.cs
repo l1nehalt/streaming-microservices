@@ -10,8 +10,3 @@ public class TrackDto
 
     public int PlayCount { get; set; }
 }
-
-public class TrackCreationDto : TrackDto
-{
-    public int ArtistId { get; set; }
-}

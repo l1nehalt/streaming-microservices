@@ -1,8 +1,6 @@
 ﻿namespace TrackService.Application.Dtos;
 
-public class TrackStatisticResponse
+public class PlayTrackDto
 {
     public int TrackId { get; set; }
-    
-    public int PlayCount { get; set; }
 }

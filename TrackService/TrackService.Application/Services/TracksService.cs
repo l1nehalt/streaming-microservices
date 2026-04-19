@@ -41,10 +41,30 @@ public class TracksService(ITracksRepository tracksRepository, StatisticClient c
             ArtistId = trackDto.ArtistId
         };
 
-        await tracksRepository.Create(trackEntity);
+        try
+        {
+            await tracksRepository.Create(trackEntity);
+
+            var newStatistic = new CreateStatisticRequest
+            {
+                PlayCount = 0,
+                TrackId = trackEntity.Id
+            };
+            
+            await client.CreateStatistic(newStatistic);
+        }
+        catch (Exception)
+        {
+            return;
+        }
     }
 
-    public async Task<List<TrackDto>> GetPopular()
+    public async Task PlayAsync(PlayTrackDto playTrackDto)
+    {
+        await client.IncreaseStatisticPlayCount(playTrackDto);
+    }
+
+    public async Task<List<TrackDto>> GetPopularAsync()
     {
         var stats = await client.GetPopularTrackStats();
         

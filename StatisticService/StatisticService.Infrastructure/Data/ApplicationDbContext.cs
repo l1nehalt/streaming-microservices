@@ -9,19 +9,17 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Statistic>().HasKey(pk => new
-        {
-            pk.TrackId,
-            pk.PlayCount
-        });
+        modelBuilder.Entity<Statistic>()
+            .HasKey(pk => pk.Id);
         
         modelBuilder.Entity<Statistic>()
-            .HasData
-            (new Statistic { PlayCount = 3131, TrackId = 3, },
-            new Statistic { PlayCount = 33123, TrackId = 33 },
-            new Statistic { PlayCount = 10931, TrackId = 49 },
-            new Statistic { PlayCount = 5543, TrackId = 76 },
-            new Statistic { PlayCount = 122, TrackId = 102 });
+            .HasData(
+            new Statistic { Id = 1, PlayCount = 3131, TrackId = 3, },
+            new Statistic { Id = 2, PlayCount = 33123, TrackId = 33 },
+            new Statistic { Id = 3, PlayCount = 10931, TrackId = 49 },
+            new Statistic { Id = 4, PlayCount = 5543, TrackId = 76 },
+            new Statistic { Id = 5, PlayCount = 122, TrackId = 102 }
+            );
         
         base.OnModelCreating(modelBuilder);
     }

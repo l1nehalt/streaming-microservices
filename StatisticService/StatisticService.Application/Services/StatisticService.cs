@@ -1,4 +1,5 @@
-﻿using StatisticService.Application.Interfaces;
+﻿using StatisticService.Application.Dtos;
+using StatisticService.Application.Interfaces;
 using StatisticService.Domain.Abstractions;
 using StatisticService.Domain.Entities;
 
@@ -11,5 +12,26 @@ public class StatisticService(IStatisticRepository statisticRepository) : IStati
         var statistics = await statisticRepository.GetPopular();
 
         return statistics;
+    }
+
+    public async Task Create(StatisticCreationDto statisticDto)
+    {
+        var statistic = new Statistic
+        {
+            TrackId = statisticDto.TrackId,
+            PlayCount = statisticDto.PlayCount,
+        };
+        
+        await statisticRepository.Create(statistic);
+    }
+
+    public async Task IncreasePlayCount(StatisticIncreasingDto statisticDto)
+    {
+        var statistic = new Statistic
+        {
+            TrackId = statisticDto.TrackId
+        };
+        
+        await statisticRepository.IncreasePlayCount(statistic);
     }
 }

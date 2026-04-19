@@ -1,6 +1,6 @@
 ﻿namespace TrackService.Application.Dtos;
 
-public class TrackStatisticResponse
+public class CreateStatisticRequest
 {
     public int TrackId { get; set; }
     
