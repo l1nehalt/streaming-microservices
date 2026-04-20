@@ -1,5 +1,7 @@
 ﻿using TrackService.Application.Clients;
 using TrackService.Application.Dtos;
+using TrackService.Application.Dtos.Statistic;
+using TrackService.Application.Dtos.Track;
 using TrackService.Application.Interfaces;
 using TrackService.Domain.Abstractions;
 using TrackService.Domain.Entities;

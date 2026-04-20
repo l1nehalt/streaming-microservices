@@ -1,4 +1,5 @@
 ﻿using TrackService.Application.Dtos;
+using TrackService.Application.Dtos.Track;
 
 namespace TrackService.Application.Interfaces;
 

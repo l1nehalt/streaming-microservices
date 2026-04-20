@@ -1,17 +1,19 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
 using TrackService.Application.Dtos;
+using TrackService.Application.Dtos.Statistic;
+using TrackService.Application.Dtos.Track;
 
 namespace TrackService.Application.Clients;
 
 public class StatisticClient(HttpClient client)
 {
-    public async Task<List<TrackStatisticResponse>> GetPopularTrackStats()
+    public async Task<List<StatisticResponse>> GetPopularTrackStats()
     {
         var result = await client
-            .GetFromJsonAsync<List<TrackStatisticResponse>>("api/statistics/popular");
+            .GetFromJsonAsync<List<StatisticResponse>>("api/statistics/popular");
         
-        return result ?? new List<TrackStatisticResponse>();
+        return result ?? new List<StatisticResponse>();
     }
 
     public async Task CreateStatistic(CreateStatisticRequest request)

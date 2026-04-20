@@ -1,4 +1,4 @@
-namespace TrackService.Application.Dtos;
+namespace TrackService.Application.Dtos.Track;
 
 public class TrackCreationDto
 {
